@@ -6,6 +6,7 @@ def make_schedule_with_odds(odds_df):
     """ Takes a dataframe of gambling odds that have each team in a game on a seperate row.  Will return a dataframe
         with both teams in a game on the same row with their Open Moneyline Odds, Close Moneyline Odds,
         who won and who lost, and Starting Pitchers. """
+    odds_df = odds_df[odds_df['Final'] != 'NL']
     new_df = pd.DataFrame()
     t = odds_df.iterrows()
     date = []
@@ -29,7 +30,7 @@ def make_schedule_with_odds(odds_df):
         visitor_open_odds.append(row1['Open'])
         home_close_odds.append(row2['Close'])
         visitor_close_odds.append(row1['Close'])
-        if row2['Final'] > row1['Final']:
+        if int(row2['Final']) > int(row1['Final']):
             home_win_loss.append(1)
             visitor_win_loss.append(0)
         else:
